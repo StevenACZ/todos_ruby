@@ -45,7 +45,10 @@ def toggle(ids)
 end
 
 # Delete
-def delete(id)
+def delete(ids)
+  ids.each do |id|
+    @todos.filter! { |todo| todo[:id] != id.to_i }
+  end
 end
 
 # Welcome
@@ -79,12 +82,15 @@ until
   when "toggle"
     print("todo ID(s): ")
     ids = gets.chomp.split(",")
-
     toggle(ids)
   when "completed"
     puts("------------------------Welcome to toDOS------------------------\n\n")
     list_completed
     puts("")
+  when "delete"
+    print("todo ID(s): ")
+    ids = gets.chomp.split(",")
+    delete(ids)
   when "exit"
     puts("Bye!")
     break
